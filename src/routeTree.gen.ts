@@ -9,38 +9,229 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PersonnaliserRouteImport } from './routes/personnaliser'
+import { Route as ParametresRouteImport } from './routes/parametres'
+import { Route as DiscussionsRouteImport } from './routes/discussions'
+import { Route as CodeRouteImport } from './routes/code'
+import { Route as ArtefactsRouteImport } from './routes/artefacts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjetsIndexRouteImport } from './routes/projets.index'
+import { Route as PersonnaliserIndexRouteImport } from './routes/personnaliser.index'
+import { Route as ProjetsProjectIdRouteImport } from './routes/projets.$projectId'
+import { Route as PersonnaliserConnecteursRouteImport } from './routes/personnaliser.connecteurs'
+import { Route as PersonnaliserCompetencesRouteImport } from './routes/personnaliser.competences'
+import { Route as ParametresSectionRouteImport } from './routes/parametres.$section'
+import { Route as CConversationIdRouteImport } from './routes/c.$conversationId'
 
+const PersonnaliserRoute = PersonnaliserRouteImport.update({
+  id: '/personnaliser',
+  path: '/personnaliser',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParametresRoute = ParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscussionsRoute = DiscussionsRouteImport.update({
+  id: '/discussions',
+  path: '/discussions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CodeRoute = CodeRouteImport.update({
+  id: '/code',
+  path: '/code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtefactsRoute = ArtefactsRouteImport.update({
+  id: '/artefacts',
+  path: '/artefacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjetsIndexRoute = ProjetsIndexRouteImport.update({
+  id: '/projets/',
+  path: '/projets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonnaliserIndexRoute = PersonnaliserIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PersonnaliserRoute,
+} as any)
+const ProjetsProjectIdRoute = ProjetsProjectIdRouteImport.update({
+  id: '/projets/$projectId',
+  path: '/projets/$projectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonnaliserConnecteursRoute =
+  PersonnaliserConnecteursRouteImport.update({
+    id: '/connecteurs',
+    path: '/connecteurs',
+    getParentRoute: () => PersonnaliserRoute,
+  } as any)
+const PersonnaliserCompetencesRoute =
+  PersonnaliserCompetencesRouteImport.update({
+    id: '/competences',
+    path: '/competences',
+    getParentRoute: () => PersonnaliserRoute,
+  } as any)
+const ParametresSectionRoute = ParametresSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => ParametresRoute,
+} as any)
+const CConversationIdRoute = CConversationIdRouteImport.update({
+  id: '/c/$conversationId',
+  path: '/c/$conversationId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/artefacts': typeof ArtefactsRoute
+  '/code': typeof CodeRoute
+  '/discussions': typeof DiscussionsRoute
+  '/parametres': typeof ParametresRouteWithChildren
+  '/personnaliser': typeof PersonnaliserRouteWithChildren
+  '/c/$conversationId': typeof CConversationIdRoute
+  '/parametres/$section': typeof ParametresSectionRoute
+  '/personnaliser/competences': typeof PersonnaliserCompetencesRoute
+  '/personnaliser/connecteurs': typeof PersonnaliserConnecteursRoute
+  '/projets/$projectId': typeof ProjetsProjectIdRoute
+  '/personnaliser/': typeof PersonnaliserIndexRoute
+  '/projets/': typeof ProjetsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/artefacts': typeof ArtefactsRoute
+  '/code': typeof CodeRoute
+  '/discussions': typeof DiscussionsRoute
+  '/parametres': typeof ParametresRouteWithChildren
+  '/c/$conversationId': typeof CConversationIdRoute
+  '/parametres/$section': typeof ParametresSectionRoute
+  '/personnaliser/competences': typeof PersonnaliserCompetencesRoute
+  '/personnaliser/connecteurs': typeof PersonnaliserConnecteursRoute
+  '/projets/$projectId': typeof ProjetsProjectIdRoute
+  '/personnaliser': typeof PersonnaliserIndexRoute
+  '/projets': typeof ProjetsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/artefacts': typeof ArtefactsRoute
+  '/code': typeof CodeRoute
+  '/discussions': typeof DiscussionsRoute
+  '/parametres': typeof ParametresRouteWithChildren
+  '/personnaliser': typeof PersonnaliserRouteWithChildren
+  '/c/$conversationId': typeof CConversationIdRoute
+  '/parametres/$section': typeof ParametresSectionRoute
+  '/personnaliser/competences': typeof PersonnaliserCompetencesRoute
+  '/personnaliser/connecteurs': typeof PersonnaliserConnecteursRoute
+  '/projets/$projectId': typeof ProjetsProjectIdRoute
+  '/personnaliser/': typeof PersonnaliserIndexRoute
+  '/projets/': typeof ProjetsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/artefacts'
+    | '/code'
+    | '/discussions'
+    | '/parametres'
+    | '/personnaliser'
+    | '/c/$conversationId'
+    | '/parametres/$section'
+    | '/personnaliser/competences'
+    | '/personnaliser/connecteurs'
+    | '/projets/$projectId'
+    | '/personnaliser/'
+    | '/projets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/artefacts'
+    | '/code'
+    | '/discussions'
+    | '/parametres'
+    | '/c/$conversationId'
+    | '/parametres/$section'
+    | '/personnaliser/competences'
+    | '/personnaliser/connecteurs'
+    | '/projets/$projectId'
+    | '/personnaliser'
+    | '/projets'
+  id:
+    | '__root__'
+    | '/'
+    | '/artefacts'
+    | '/code'
+    | '/discussions'
+    | '/parametres'
+    | '/personnaliser'
+    | '/c/$conversationId'
+    | '/parametres/$section'
+    | '/personnaliser/competences'
+    | '/personnaliser/connecteurs'
+    | '/projets/$projectId'
+    | '/personnaliser/'
+    | '/projets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArtefactsRoute: typeof ArtefactsRoute
+  CodeRoute: typeof CodeRoute
+  DiscussionsRoute: typeof DiscussionsRoute
+  ParametresRoute: typeof ParametresRouteWithChildren
+  PersonnaliserRoute: typeof PersonnaliserRouteWithChildren
+  CConversationIdRoute: typeof CConversationIdRoute
+  ProjetsProjectIdRoute: typeof ProjetsProjectIdRoute
+  ProjetsIndexRoute: typeof ProjetsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/personnaliser': {
+      id: '/personnaliser'
+      path: '/personnaliser'
+      fullPath: '/personnaliser'
+      preLoaderRoute: typeof PersonnaliserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parametres': {
+      id: '/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof ParametresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discussions': {
+      id: '/discussions'
+      path: '/discussions'
+      fullPath: '/discussions'
+      preLoaderRoute: typeof DiscussionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/code': {
+      id: '/code'
+      path: '/code'
+      fullPath: '/code'
+      preLoaderRoute: typeof CodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artefacts': {
+      id: '/artefacts'
+      path: '/artefacts'
+      fullPath: '/artefacts'
+      preLoaderRoute: typeof ArtefactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +239,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projets/': {
+      id: '/projets/'
+      path: '/projets'
+      fullPath: '/projets/'
+      preLoaderRoute: typeof ProjetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personnaliser/': {
+      id: '/personnaliser/'
+      path: '/'
+      fullPath: '/personnaliser/'
+      preLoaderRoute: typeof PersonnaliserIndexRouteImport
+      parentRoute: typeof PersonnaliserRoute
+    }
+    '/projets/$projectId': {
+      id: '/projets/$projectId'
+      path: '/projets/$projectId'
+      fullPath: '/projets/$projectId'
+      preLoaderRoute: typeof ProjetsProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personnaliser/connecteurs': {
+      id: '/personnaliser/connecteurs'
+      path: '/connecteurs'
+      fullPath: '/personnaliser/connecteurs'
+      preLoaderRoute: typeof PersonnaliserConnecteursRouteImport
+      parentRoute: typeof PersonnaliserRoute
+    }
+    '/personnaliser/competences': {
+      id: '/personnaliser/competences'
+      path: '/competences'
+      fullPath: '/personnaliser/competences'
+      preLoaderRoute: typeof PersonnaliserCompetencesRouteImport
+      parentRoute: typeof PersonnaliserRoute
+    }
+    '/parametres/$section': {
+      id: '/parametres/$section'
+      path: '/$section'
+      fullPath: '/parametres/$section'
+      preLoaderRoute: typeof ParametresSectionRouteImport
+      parentRoute: typeof ParametresRoute
+    }
+    '/c/$conversationId': {
+      id: '/c/$conversationId'
+      path: '/c/$conversationId'
+      fullPath: '/c/$conversationId'
+      preLoaderRoute: typeof CConversationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ParametresRouteChildren {
+  ParametresSectionRoute: typeof ParametresSectionRoute
+}
+
+const ParametresRouteChildren: ParametresRouteChildren = {
+  ParametresSectionRoute: ParametresSectionRoute,
+}
+
+const ParametresRouteWithChildren = ParametresRoute._addFileChildren(
+  ParametresRouteChildren,
+)
+
+interface PersonnaliserRouteChildren {
+  PersonnaliserCompetencesRoute: typeof PersonnaliserCompetencesRoute
+  PersonnaliserConnecteursRoute: typeof PersonnaliserConnecteursRoute
+  PersonnaliserIndexRoute: typeof PersonnaliserIndexRoute
+}
+
+const PersonnaliserRouteChildren: PersonnaliserRouteChildren = {
+  PersonnaliserCompetencesRoute: PersonnaliserCompetencesRoute,
+  PersonnaliserConnecteursRoute: PersonnaliserConnecteursRoute,
+  PersonnaliserIndexRoute: PersonnaliserIndexRoute,
+}
+
+const PersonnaliserRouteWithChildren = PersonnaliserRoute._addFileChildren(
+  PersonnaliserRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArtefactsRoute: ArtefactsRoute,
+  CodeRoute: CodeRoute,
+  DiscussionsRoute: DiscussionsRoute,
+  ParametresRoute: ParametresRouteWithChildren,
+  PersonnaliserRoute: PersonnaliserRouteWithChildren,
+  CConversationIdRoute: CConversationIdRoute,
+  ProjetsProjectIdRoute: ProjetsProjectIdRoute,
+  ProjetsIndexRoute: ProjetsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
