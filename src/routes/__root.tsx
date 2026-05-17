@@ -9,6 +9,10 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
+import { CommandPaletteProvider } from "@/hooks/useCommandPalette";
+import { SearchCommand } from "@/components/common/SearchCommand";
 
 function NotFoundComponent() {
   return (
@@ -72,11 +76,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Claude — Assistant IA" },
+      { name: "description", content: "Interface assistante IA — chat, projets, artéfacts, compétences et connecteurs." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Claude — Assistant IA" },
+      { property: "og:description", content: "Interface assistante IA modulaire." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -85,6 +89,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap",
       },
     ],
   }),
@@ -113,7 +123,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <CommandPaletteProvider>
+        <SidebarProvider>
+          <div className="flex min-h-screen w-full bg-background text-foreground">
+            <AppSidebar />
+            <SidebarInset className="flex min-w-0 flex-1 flex-col">
+              <Outlet />
+            </SidebarInset>
+          </div>
+          <SearchCommand />
+        </SidebarProvider>
+      </CommandPaletteProvider>
     </QueryClientProvider>
   );
 }
