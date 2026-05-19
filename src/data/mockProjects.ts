@@ -13,7 +13,6 @@ export const projects: Project[] = [
   {
     id: "hire",
     name: "hire",
-    tag: "bug",
     description: "Espace de travail pour le recrutement et le triage des candidatures.",
     instructions: "",
     updatedAt: "il y a 6 mois",
