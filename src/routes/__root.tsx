@@ -13,6 +13,7 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { CommandPaletteProvider } from "@/hooks/useCommandPalette";
 import { SearchCommand } from "@/components/common/SearchCommand";
+import { I18nProvider } from "@/i18n/I18nProvider";
 
 function NotFoundComponent() {
   return (
@@ -123,17 +124,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CommandPaletteProvider>
-        <SidebarProvider>
-          <div className="flex min-h-screen w-full bg-background text-foreground">
-            <AppSidebar />
-            <SidebarInset className="flex min-w-0 flex-1 flex-col">
-              <Outlet />
-            </SidebarInset>
-          </div>
-          <SearchCommand />
-        </SidebarProvider>
-      </CommandPaletteProvider>
+      <I18nProvider>
+        <CommandPaletteProvider>
+          <SidebarProvider>
+            <div className="flex min-h-screen w-full bg-background text-foreground">
+              <AppSidebar />
+              <SidebarInset className="flex min-w-0 flex-1 flex-col">
+                <Outlet />
+              </SidebarInset>
+            </div>
+            <SearchCommand />
+          </SidebarProvider>
+        </CommandPaletteProvider>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
