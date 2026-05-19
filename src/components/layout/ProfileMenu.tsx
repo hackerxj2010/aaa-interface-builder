@@ -4,13 +4,21 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Link } from "@tanstack/react-router";
 import { Settings, Globe, HelpCircle, ArrowUpCircle, Download, Info, LogOut } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
+import { locales, localeNames, type Locale } from "@/i18n/translations";
 
 export function ProfileMenu({ collapsed }: { collapsed: boolean }) {
+  const { locale, setLocale, t } = useI18n();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,7 +29,7 @@ export function ProfileMenu({ collapsed }: { collapsed: boolean }) {
           {!collapsed && (
             <div className="flex flex-col leading-tight">
               <span className="text-[13px] font-medium text-sidebar-foreground">Jean</span>
-              <span className="text-[11px] text-muted-foreground">Forfait Free</span>
+              <span className="text-[11px] text-muted-foreground">{t("plan.free")}</span>
             </div>
           )}
         </button>
@@ -33,29 +41,44 @@ export function ProfileMenu({ collapsed }: { collapsed: boolean }) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link to="/parametres/$section" params={{ section: "general" }}>
-            <Settings className="mr-2 h-4 w-4" /> Paramètres
+            <Settings className="mr-2 h-4 w-4" /> {t("profile.settings")}
             <span className="ml-auto text-[11px] text-muted-foreground">⇧⌃,</span>
           </Link>
         </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Globe className="mr-2 h-4 w-4" /> {t("profile.language")}
+            <span className="ml-auto text-[11px] text-muted-foreground">{localeNames[locale]}</span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuRadioGroup
+              value={locale}
+              onValueChange={(v) => setLocale(v as Locale)}
+            >
+              {locales.map((l) => (
+                <DropdownMenuRadioItem key={l} value={l}>
+                  {localeNames[l]}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
         <DropdownMenuItem>
-          <Globe className="mr-2 h-4 w-4" /> Langue
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <HelpCircle className="mr-2 h-4 w-4" /> Obtenir de l'aide
+          <HelpCircle className="mr-2 h-4 w-4" /> {t("profile.help")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="text-primary focus:text-primary">
-          <ArrowUpCircle className="mr-2 h-4 w-4" /> Mettre à niveau l'abonnement
+          <ArrowUpCircle className="mr-2 h-4 w-4" /> {t("profile.upgrade")}
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Download className="mr-2 h-4 w-4" /> Obtenir des applications et extensions
+          <Download className="mr-2 h-4 w-4" /> {t("profile.apps")}
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Info className="mr-2 h-4 w-4" /> En savoir plus
+          <Info className="mr-2 h-4 w-4" /> {t("profile.learnMore")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" /> Se déconnecter
+          <LogOut className="mr-2 h-4 w-4" /> {t("profile.logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -28,22 +28,24 @@ import { ClaudeLogo } from "@/components/common/ClaudeLogo";
 import { ProfileMenu } from "./ProfileMenu";
 import { favorites, conversations } from "@/data/mockConversations";
 import { useCommandPalette } from "@/hooks/useCommandPalette";
-
-const primary = [
-  { title: "Nouvelle conversation", url: "/", icon: Plus, exact: true },
-  { title: "Rechercher", url: "/__search", icon: Search, action: "search" as const },
-  { title: "Discussions", url: "/discussions", icon: MessagesSquare },
-  { title: "Projets", url: "/projets", icon: FolderClosed },
-  { title: "Artéfacts", url: "/artefacts", icon: LayoutGrid },
-  { title: "Code", url: "/code", icon: Code2, badge: "Mettre à niveau" },
-  { title: "Personnaliser", url: "/personnaliser", icon: Briefcase },
-];
+import { useT } from "@/i18n/I18nProvider";
 
 export function AppSidebar() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const palette = useCommandPalette();
+  const t = useT();
+
+  const primary = [
+    { title: t("nav.new"), url: "/", icon: Plus, exact: true },
+    { title: t("nav.search"), url: "/__search", icon: Search, action: "search" as const },
+    { title: t("nav.discussions"), url: "/discussions", icon: MessagesSquare },
+    { title: t("nav.projects"), url: "/projets", icon: FolderClosed },
+    { title: t("nav.artifacts"), url: "/artefacts", icon: LayoutGrid },
+    { title: t("nav.code"), url: "/code", icon: Code2, badge: t("nav.upgrade") },
+    { title: t("nav.customize"), url: "/personnaliser", icon: Briefcase },
+  ];
 
   const isActive = (url: string) => (url === "/" ? path === "/" : path.startsWith(url));
 
@@ -101,7 +103,7 @@ export function AppSidebar() {
           <>
             <SidebarGroup>
               <SidebarGroupLabel className="text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                Favoris
+                {t("nav.favorites")}
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -120,7 +122,7 @@ export function AppSidebar() {
 
             <SidebarGroup>
               <SidebarGroupLabel className="text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                Récents
+                {t("nav.recents")}
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -150,7 +152,7 @@ export function AppSidebar() {
           {!collapsed && (
             <button
               className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-sidebar-accent"
-              aria-label="Téléchargements"
+              aria-label={t("profile.downloads")}
             >
               <Download className="h-4 w-4" />
             </button>

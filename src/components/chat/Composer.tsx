@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { ComposerPlusMenu } from "./ComposerPlusMenu";
 import { ModelPicker } from "./ModelPicker";
 import { AudioLines } from "lucide-react";
+import { useT } from "@/i18n/I18nProvider";
 
 type Props = {
   placeholder?: string;
@@ -9,7 +10,8 @@ type Props = {
   autoFocus?: boolean;
 };
 
-export function Composer({ placeholder = "Tapez / pour les compétences", onSend, autoFocus }: Props) {
+export function Composer({ placeholder, onSend, autoFocus }: Props) {
+  const t = useT();
   const [value, setValue] = useState("");
 
   const submit = (e: FormEvent) => {
@@ -29,7 +31,7 @@ export function Composer({ placeholder = "Tapez / pour les compétences", onSend
         autoFocus={autoFocus}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
+        placeholder={placeholder ?? t("composer.placeholder")}
         rows={2}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
@@ -45,7 +47,7 @@ export function Composer({ placeholder = "Tapez / pour les compétences", onSend
           <ModelPicker />
           <button
             type="button"
-            aria-label="Dictée vocale"
+            aria-label={t("composer.dictation")}
             className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-surface-elevated hover:text-foreground"
           >
             <AudioLines className="h-4 w-4" />
