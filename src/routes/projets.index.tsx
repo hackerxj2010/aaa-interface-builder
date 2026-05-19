@@ -56,7 +56,7 @@ function ProjectsIndex() {
             </div>
             <p className="line-clamp-3 flex-1 text-[13px] leading-relaxed text-muted-foreground">{p.description}</p>
             {p.updatedAt && (
-              <div className="mt-4 text-[12px] text-muted-foreground/70">Mis.e.s à jour à {p.updatedAt}</div>
+              <div className="mt-4 text-[12px] text-muted-foreground/70">Mis à jour {p.updatedAt}</div>
             )}
           </Link>
         ))}
