@@ -4,7 +4,7 @@ import { locales, translations, type Locale, type TranslationKey } from "./trans
 type Ctx = {
   locale: Locale;
   setLocale: (l: Locale) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: TranslationKey, vars?: Record<string, string | number>) => string;
 };
 
 const I18nContext = createContext<Ctx | null>(null);
@@ -38,7 +38,14 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const t = useCallback(
-    (key: TranslationKey) => translations[locale][key] ?? translations.fr[key] ?? key,
+    (key: TranslationKey, vars?: Record<string, string | number>) => {
+      const raw = translations[locale][key] ?? translations.fr[key] ?? (key as string);
+      if (!vars) return raw;
+      return Object.entries(vars).reduce(
+        (acc, [k, v]) => acc.replaceAll(`{${k}}`, String(v)),
+        raw,
+      );
+    },
     [locale],
   );
 
