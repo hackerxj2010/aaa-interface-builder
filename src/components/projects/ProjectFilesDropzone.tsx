@@ -1,10 +1,12 @@
 import { FilePlus2 } from "lucide-react";
+import { useT } from "@/i18n/I18nProvider";
 export function ProjectFilesDropzone({ files }: { files: { name: string; type: string; size: string }[] }) {
+  const t = useT();
   if (files.length === 0)
     return (
       <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border bg-surface p-8 text-center">
         <FilePlus2 className="h-6 w-6 text-muted-foreground" />
-        <p className="text-[13px] text-muted-foreground">Ajoutez des PDF, des documents ou autres textes à référencer dans ce projet.</p>
+        <p className="text-[13px] text-muted-foreground">{t("project.dropzone")}</p>
       </div>
     );
   return (

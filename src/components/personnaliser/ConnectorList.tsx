@@ -1,5 +1,6 @@
 import type { Connector } from "@/data/mockConnectors";
 import { Globe, Mail, Calendar, Github, HardDrive } from "lucide-react";
+import { useT } from "@/i18n/I18nProvider";
 
 const iconFor = (id: string) => {
   switch (id) {
@@ -20,6 +21,7 @@ export function ConnectorList({
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
+  const t = useT();
   const web = connectors.filter((c) => c.category === "web");
   const disconnected = connectors.filter((c) => c.category === "disconnected");
 
@@ -43,13 +45,13 @@ export function ConnectorList({
     <div className="space-y-4 p-2">
       <div>
         <div className="flex items-center gap-2 px-3 py-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
-          Web
+          {t("connectors.web")}
         </div>
         {web.map((c) => <Row key={c.id} c={c} />)}
       </div>
       <div>
         <div className="flex items-center gap-2 px-3 py-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
-          Non connecté
+          {t("connectors.disconnected")}
         </div>
         {disconnected.map((c) => <Row key={c.id} c={c} />)}
       </div>

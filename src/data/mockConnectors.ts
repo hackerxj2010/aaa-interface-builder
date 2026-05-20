@@ -1,3 +1,6 @@
+import type { Locale } from "@/i18n/translations";
+import { translations } from "@/i18n/translations";
+
 export type Permission = {
   name: string;
   approval: "auto" | "ask" | "never";
@@ -13,7 +16,9 @@ export type Connector = {
   writePermissions?: Permission[];
 };
 
-export const connectors: Connector[] = [
+const T = (l: Locale, k: string) => translations[l][k] ?? translations.fr[k] ?? k;
+
+export const getConnectors = (l: Locale): Connector[] => [
   {
     id: "gdrive",
     name: "Google Drive",
@@ -36,5 +41,5 @@ export const connectors: Connector[] = [
   },
   { id: "gmail", name: "Gmail", category: "disconnected", connected: false },
   { id: "gcal", name: "Google Calendar", category: "disconnected", connected: false },
-  { id: "github", name: "Intégration GitHub", category: "disconnected", connected: false },
+  { id: "github", name: T(l, "conn.github"), category: "disconnected", connected: false },
 ];

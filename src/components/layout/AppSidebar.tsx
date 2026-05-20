@@ -26,16 +26,18 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ClaudeLogo } from "@/components/common/ClaudeLogo";
 import { ProfileMenu } from "./ProfileMenu";
-import { favorites, conversations } from "@/data/mockConversations";
+import { getFavorites, getConversations } from "@/data/mockConversations";
 import { useCommandPalette } from "@/hooks/useCommandPalette";
-import { useT } from "@/i18n/I18nProvider";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function AppSidebar() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const palette = useCommandPalette();
-  const t = useT();
+  const { t, locale } = useI18n();
+  const favorites = getFavorites(locale);
+  const conversations = getConversations(locale);
 
   const primary = [
     { title: t("nav.new"), url: "/", icon: Plus, exact: true },

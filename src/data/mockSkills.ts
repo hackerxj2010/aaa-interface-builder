@@ -1,3 +1,6 @@
+import type { Locale } from "@/i18n/translations";
+import { translations } from "@/i18n/translations";
+
 export type SkillNode = {
   name: string;
   type: "folder" | "file";
@@ -13,11 +16,13 @@ export type Skill = {
   tree: SkillNode[];
 };
 
-export const skills: Skill[] = [
+const T = (l: Locale, k: string) => translations[l][k] ?? translations.fr[k] ?? k;
+
+export const getSkills = (l: Locale): Skill[] => [
   {
     id: "skill-creator",
     name: "skill-creator",
-    description: "Crée et structure des compétences réutilisables pour Claude.",
+    description: T(l, "skill.creator.desc"),
     tree: [
       { name: "SKILL.md", type: "file", language: "md", content: "# skill-creator\n\nA meta-skill that helps you build new skills." },
       {

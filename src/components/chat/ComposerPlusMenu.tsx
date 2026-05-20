@@ -21,8 +21,10 @@ import {
   Check,
 } from "lucide-react";
 import { useState } from "react";
+import { useT } from "@/i18n/I18nProvider";
 
 export function ComposerPlusMenu() {
+  const t = useT();
   const [web, setWeb] = useState(true);
   const [drive, setDrive] = useState(true);
 
@@ -30,7 +32,7 @@ export function ComposerPlusMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          aria-label="Plus d'options"
+          aria-label={t("composerPlus.moreOptions")}
           className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-surface-elevated hover:text-foreground"
         >
           <Plus className="h-4 w-4" />
@@ -39,15 +41,15 @@ export function ComposerPlusMenu() {
       <DropdownMenuContent align="start" side="top" className="w-72">
         <DropdownMenuItem>
           <Paperclip className="mr-2 h-4 w-4" />
-          Ajouter des fichiers ou des photos
+          {t("composerPlus.addFiles")}
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Camera className="mr-2 h-4 w-4" />
-          Prendre une capture d'écran
+          {t("composerPlus.screenshot")}
         </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
-            <FolderPlus className="mr-2 h-4 w-4" /> Ajouter au projet
+            <FolderPlus className="mr-2 h-4 w-4" /> {t("composerPlus.addToProject")}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="w-56">
             <DropdownMenuItem>hire</DropdownMenuItem>
@@ -57,25 +59,25 @@ export function ComposerPlusMenu() {
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Scroll className="mr-2 h-4 w-4" /> Compétences
+          <Scroll className="mr-2 h-4 w-4" /> {t("composerPlus.skills")}
         </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
-            <Blocks className="mr-2 h-4 w-4" /> Connecteurs
+            <Blocks className="mr-2 h-4 w-4" /> {t("composerPlus.connectors")}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="w-72">
             <div className="flex items-center justify-between px-2 py-1.5">
               <span className="text-[13px]">Google Drive</span>
               <Switch checked={drive} onCheckedChange={setDrive} />
             </div>
-            <DropdownMenuItem>Ajouter depuis Google Drive</DropdownMenuItem>
+            <DropdownMenuItem>{t("composerPlus.addFromDrive")}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Gérer les connecteurs</DropdownMenuItem>
-            <DropdownMenuItem>+ Ajouter un connecteur</DropdownMenuItem>
+            <DropdownMenuItem>{t("composerPlus.manageConnectors")}</DropdownMenuItem>
+            <DropdownMenuItem>{t("composerPlus.addConnector")}</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex flex-col items-start gap-0.5">
-              <span>Accès aux outils</span>
-              <span className="text-[11px] text-muted-foreground">Charger les outils si nécessaire</span>
+              <span>{t("composerPlus.toolsAccess")}</span>
+              <span className="text-[11px] text-muted-foreground">{t("composerPlus.toolsAccessHint")}</span>
             </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
@@ -84,13 +86,13 @@ export function ComposerPlusMenu() {
           onClick={(e) => e.preventDefault()}
         >
           <Globe className="mr-2 h-4 w-4" />
-          <span className="flex-1">Recherche Web</span>
-          <button onClick={() => setWeb(!web)} aria-label="toggle web">
+          <span className="flex-1">{t("composerPlus.webSearch")}</span>
+          <button onClick={() => setWeb(!web)} aria-label={t("composerPlus.toggleWeb")}>
             {web && <Check className="h-4 w-4" />}
           </button>
         </div>
         <DropdownMenuItem>
-          <Feather className="mr-2 h-4 w-4" /> Utiliser le style
+          <Feather className="mr-2 h-4 w-4" /> {t("composerPlus.useStyle")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
