@@ -7,21 +7,25 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useCommandPalette } from "@/hooks/useCommandPalette";
-import { conversations } from "@/data/mockConversations";
-import { projects } from "@/data/mockProjects";
+import { getConversations } from "@/data/mockConversations";
+import { getProjects } from "@/data/mockProjects";
 import { MessagesSquare, FolderClosed } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function SearchCommand() {
   const { open, setOpen } = useCommandPalette();
   const navigate = useNavigate();
+  const { t, locale } = useI18n();
+  const conversations = getConversations(locale);
+  const projects = getProjects(locale);
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Rechercher dans les discussions et projets…" />
+      <CommandInput placeholder={t("search.placeholder")} />
       <CommandList>
-        <CommandEmpty>Aucun résultat.</CommandEmpty>
-        <CommandGroup heading="Discussions">
+        <CommandEmpty>{t("search.empty")}</CommandEmpty>
+        <CommandGroup heading={t("search.discussionsHeading")}>
           {conversations.map((c) => (
             <CommandItem
               key={c.id}
@@ -37,7 +41,7 @@ export function SearchCommand() {
             </CommandItem>
           ))}
         </CommandGroup>
-        <CommandGroup heading="Projets">
+        <CommandGroup heading={t("search.projectsHeading")}>
           {projects.map((p) => (
             <CommandItem
               key={p.id}
