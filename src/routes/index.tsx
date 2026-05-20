@@ -6,7 +6,6 @@ import { UpgradeBanner } from "@/components/layout/UpgradeBanner";
 import { useT } from "@/i18n/I18nProvider";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "Claude — Nouvelle conversation" }] }),
   component: Index,
 });
 

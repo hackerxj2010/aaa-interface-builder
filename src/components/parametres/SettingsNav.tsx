@@ -1,23 +1,25 @@
 import { Link, useParams } from "@tanstack/react-router";
+import { useT } from "@/i18n/I18nProvider";
 
-export const sections = [
-  { id: "general", label: "Général" },
-  { id: "compte", label: "Compte" },
-  { id: "confidentialite", label: "Confidentialité" },
-  { id: "facturation", label: "Facturation" },
-  { id: "capacites", label: "Capacités" },
-  { id: "connecteurs", label: "Connecteurs" },
-  { id: "claude-code", label: "Claude Code" },
-];
+export const sectionIds = [
+  "general",
+  "compte",
+  "confidentialite",
+  "facturation",
+  "capacites",
+  "connecteurs",
+  "claude-code",
+] as const;
 
 export function SettingsNav() {
+  const t = useT();
   const { section } = useParams({ from: "/parametres/$section" });
   return (
     <nav className="flex w-52 flex-col gap-0.5 py-6 pr-4">
-      {sections.map((s) => (
-        <Link key={s.id} to="/parametres/$section" params={{ section: s.id }}
-          className={`rounded-md px-3 py-1.5 text-left text-[13.5px] ${section === s.id ? "bg-surface-elevated text-foreground" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`}>
-          {s.label}
+      {sectionIds.map((id) => (
+        <Link key={id} to="/parametres/$section" params={{ section: id }}
+          className={`rounded-md px-3 py-1.5 text-left text-[13.5px] ${section === id ? "bg-surface-elevated text-foreground" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`}>
+          {t(`settings.section.${id}` as never)}
         </Link>
       ))}
     </nav>

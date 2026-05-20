@@ -1,19 +1,21 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
-const fields: { label: string; defaultValue?: string; type?: "select" }[] = [
-  { label: "Nom complet", defaultValue: "Jean" },
-  { label: "Comment souhaitez-vous que Claude vous appelle ?", defaultValue: "Create a prompt for me that say" },
-  { label: "Quelle est la meilleure description de votre travail ?", type: "select" },
-];
+import { useI18n } from "@/i18n/I18nProvider";
+import { localeNames } from "@/i18n/translations";
 
 export function General() {
+  const { t, locale } = useI18n();
+  const fields: { label: string; defaultValue?: string; type?: "select" }[] = [
+    { label: t("settings.general.fullName"), defaultValue: "Jean" },
+    { label: t("settings.general.callYou"), defaultValue: "Create a prompt for me that say" },
+    { label: t("settings.general.work"), type: "select" },
+  ];
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="mb-4 font-serif text-xl text-foreground">Profil</h2>
+        <h2 className="mb-4 font-serif text-xl text-foreground">{t("settings.general.profile")}</h2>
         <div className="divide-y divide-border-subtle">
-          <Row label="Avatar">
+          <Row label={t("settings.general.avatar")}>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-[12px] text-foreground">
               J
             </div>
@@ -22,7 +24,7 @@ export function General() {
             <Row key={f.label} label={f.label}>
               {f.type === "select" ? (
                 <button className="rounded-md border border-border bg-surface px-3 py-1.5 text-[13px] text-muted-foreground">
-                  Sélectionner ▾
+                  {t("settings.general.select")} ▾
                 </button>
               ) : (
                 <Input defaultValue={f.defaultValue} className="w-72" />
@@ -33,25 +35,24 @@ export function General() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-serif text-xl text-foreground">Instructions pour Claude</h2>
+        <h2 className="mb-2 font-serif text-xl text-foreground">{t("settings.general.instructions")}</h2>
         <p className="mb-3 text-[12.5px] text-muted-foreground">
-          Claude gardera ces éléments à l'esprit dans les chats et Cowork, conformément aux
-          directives d'Anthropic. <a className="underline">En savoir plus</a>
+          {t("settings.general.instructionsHint")} <a className="underline">{t("settings.general.learnMore")}</a>
         </p>
         <Textarea
-          placeholder="p. ex. poser des questions de clarification avant de donner des réponses détaillées"
+          placeholder={t("settings.general.instructionsPlaceholder")}
           className="min-h-28"
         />
       </section>
 
       <section>
-        <h2 className="mb-4 font-serif text-xl text-foreground">Préférences</h2>
+        <h2 className="mb-4 font-serif text-xl text-foreground">{t("settings.general.preferences")}</h2>
         <div className="divide-y divide-border-subtle">
-          <Row label="Thème">
-            <span className="text-[13px] text-muted-foreground">Sombre</span>
+          <Row label={t("settings.general.theme")}>
+            <span className="text-[13px] text-muted-foreground">{t("settings.general.themeDark")}</span>
           </Row>
-          <Row label="Langue de l'interface">
-            <span className="text-[13px] text-muted-foreground">Français</span>
+          <Row label={t("settings.general.uiLanguage")}>
+            <span className="text-[13px] text-muted-foreground">{localeNames[locale]}</span>
           </Row>
         </div>
       </section>

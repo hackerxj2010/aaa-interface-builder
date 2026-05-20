@@ -8,13 +8,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Check } from "lucide-react";
 import { useState } from "react";
+import { useT } from "@/i18n/I18nProvider";
 
 const models = ["Sonnet 4.6", "Opus 4.6", "Haiku 4.6"];
-const modes = ["Adaptatif", "Étendue", "Rapide"];
 
 export function ModelPicker() {
+  const t = useT();
+  const modes = [t("model.adaptive"), t("model.extended"), t("model.fast")];
   const [model, setModel] = useState("Sonnet 4.6");
-  const [mode, setMode] = useState("Adaptatif");
+  const [mode, setMode] = useState(modes[0]);
 
   return (
     <DropdownMenu>
@@ -26,7 +28,7 @@ export function ModelPicker() {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>Modèle</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("model.model")}</DropdownMenuLabel>
         {models.map((m) => (
           <DropdownMenuItem key={m} onSelect={() => setModel(m)}>
             {m}
@@ -34,7 +36,7 @@ export function ModelPicker() {
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuLabel>Mode</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("model.mode")}</DropdownMenuLabel>
         {modes.map((m) => (
           <DropdownMenuItem key={m} onSelect={() => setMode(m)}>
             {m}

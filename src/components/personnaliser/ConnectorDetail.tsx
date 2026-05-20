@@ -2,6 +2,7 @@ import type { Connector } from "@/data/mockConnectors";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle2, HandIcon, Ban } from "lucide-react";
+import { useT } from "@/i18n/I18nProvider";
 
 function Approval({ value }: { value: string }) {
   return (
@@ -14,15 +15,15 @@ function Approval({ value }: { value: string }) {
 }
 
 export function ConnectorDetail({ connector }: { connector: Connector }) {
+  const t = useT();
   if (!connector.connected) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-3 p-10 text-center">
         <h2 className="font-serif text-2xl">{connector.name}</h2>
         <p className="max-w-md text-[13.5px] text-muted-foreground">
-          Ce connecteur n'est pas encore connecté. Connectez-vous pour donner à Claude
-          l'accès à vos données.
+          {t("connector.notConnected")}
         </p>
-        <Button>Se connecter</Button>
+        <Button>{t("connector.connect")}</Button>
       </div>
     );
   }
@@ -31,22 +32,22 @@ export function ConnectorDetail({ connector }: { connector: Connector }) {
     <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
         <h2 className="font-serif text-xl text-foreground">{connector.name}</h2>
-        <Button variant="outline" size="sm">Déconnecter</Button>
+        <Button variant="outline" size="sm">{t("connector.disconnect")}</Button>
       </div>
       {connector.description && (
         <p className="text-[13.5px] leading-relaxed text-muted-foreground">{connector.description}</p>
       )}
 
       <div>
-        <h3 className="mb-1 text-[14px] font-medium text-foreground">Autorisations des outils</h3>
+        <h3 className="mb-1 text-[14px] font-medium text-foreground">{t("connector.permissions")}</h3>
         <p className="mb-3 text-[12.5px] text-muted-foreground">
-          Choisissez quand Claude est autorisé à utiliser ces outils.
+          {t("connector.permissionsHint")}
         </p>
         <Accordion type="multiple" defaultValue={["read"]} className="space-y-2">
           {connector.readPermissions && (
             <AccordionItem value="read" className="rounded-lg border border-border-subtle px-3">
               <AccordionTrigger className="text-[13.5px]">
-                <span>Outils en lecture seule</span>
+                <span>{t("connector.readTools")}</span>
                 <span className="ml-2 rounded-full bg-surface px-2 text-[11px] text-muted-foreground">
                   {connector.readPermissions.length}
                 </span>
@@ -66,7 +67,7 @@ export function ConnectorDetail({ connector }: { connector: Connector }) {
           {connector.writePermissions && (
             <AccordionItem value="write" className="rounded-lg border border-border-subtle px-3">
               <AccordionTrigger className="text-[13.5px]">
-                <span>Outils d'écriture</span>
+                <span>{t("connector.writeTools")}</span>
                 <span className="ml-2 rounded-full bg-surface px-2 text-[11px] text-muted-foreground">
                   {connector.writePermissions.length}
                 </span>

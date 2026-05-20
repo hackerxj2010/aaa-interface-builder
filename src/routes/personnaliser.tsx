@@ -1,22 +1,23 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Scroll, Blocks, ArrowLeft } from "lucide-react";
+import { useT } from "@/i18n/I18nProvider";
 
 export const Route = createFileRoute("/personnaliser")({
-  head: () => ({ meta: [{ title: "Claude — Personnaliser" }] }),
   component: PersonnaliserLayout,
 });
 
 function PersonnaliserLayout() {
+  const t = useT();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const items = [
-    { to: "/personnaliser/competences" as const, label: "Compétences", icon: Scroll },
-    { to: "/personnaliser/connecteurs" as const, label: "Connecteurs", icon: Blocks },
+    { to: "/personnaliser/competences" as const, label: t("personnaliser.skills"), icon: Scroll },
+    { to: "/personnaliser/connecteurs" as const, label: t("personnaliser.connectors"), icon: Blocks },
   ];
   return (
     <div className="flex h-full flex-1">
       <aside className="w-60 border-r border-border-subtle px-3 py-6">
         <Link to="/" className="mb-4 flex items-center gap-2 px-2 text-[14px] text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> Personnaliser
+          <ArrowLeft className="h-4 w-4" /> {t("personnaliser.title")}
         </Link>
         <nav className="space-y-1">
           {items.map((i) => (
